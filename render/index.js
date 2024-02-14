@@ -18,8 +18,9 @@ function extractInfo(sheet, tmpl) {
 }
 
 function parseTmpl() {
-    localStorage.setItem('template', $('#tmpl').val());
-    return '`' + $('#tmpl').val().replace(/\[(.*?)\]/g, '${getCell(sheet, "$1",rowIndex)}') + '\n\n`';
+    const tmpl = $('#tmpl').val();
+    localStorage.setItem('template', tmpl);
+    return '`' + tmpl.replace(/\[(.*?)]/g, '${getCell(sheet, "$1",rowIndex)}') + '\n\n`';
 }
 
 const useFilter = (sheet, rowIndex) =>
@@ -29,13 +30,6 @@ const useFilter = (sheet, rowIndex) =>
         const cell = sheet[`${f.col}${rowIndex}`];
         return !!(cell && cell.v.toString().match(re));
     });
-
-
-function getCell(sheet, col, row) {
-    const cell = sheet[col.toUpperCase() + row];
-    return cell ? cell.v : '（空）';
-}
-
 
 function saveFilter() {
     filters = localStorage.getItem('filters') ? JSON.parse(localStorage.getItem('filters')) : [{}];
@@ -56,7 +50,7 @@ function saveFilter() {
         });
         localStorage.setItem('filters', JSON.stringify(filters));
     });
-    $(document).on('keyup', '.filter-content', e => {
+    $(document).on('keyup', '.filter-content', () => {
         $('.filter-content').each(function (idx, el) {
             filters[idx].content = el.value;
         });
@@ -89,22 +83,18 @@ function removeFilter(e) {
 
 window.onload = () => {
     let sheetChosen;
-    let filters;
 
-    $('#tmpl').val(localStorage.getItem('template') ? localStorage.getItem('template') : `是否录入：[I]。
-[A]，姓名：[B]，身份证：[C]，电话：[D]，下发地址：[E]。
-排查情况：[L]。
-具体情况：[T]。
-现住址：[S]`);
+    $('#tmpl').val(localStorage.getItem('template') ? localStorage.getItem('template') : '');
     $('#file-input').change((e) => {
         wb = xlsx.readFile(e.target.files[0].path);
-        $('#choose-sheet-btn').removeAttr('disabled');
+        const chooseSheetBtn = $('#choose-sheet-btn');
+        chooseSheetBtn.removeAttr('disabled');
         $('#sheet-options li').remove();
         for (const sheet of wb.SheetNames) {
             $('#sheet-options').append(`<li><a href="#" class="dropdown-item" id="${sheet}">${sheet}</a></li>`);
         }
         sheetChosen = null;
-        $('#choose-sheet-btn').text('Sheet name');
+        chooseSheetBtn.text('Sheet name');
         $('#extract').attr('disabled', true);
 
     });
