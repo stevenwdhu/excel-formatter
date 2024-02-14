@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel data extract</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script defer>
+        window.$ = window.jQuery = require('jquery');
+        // require('./node_modules/@popperjs/core/dist/cjs/popper.js')
+        // require('./node_modules/bootstrap/dist/js/bootstrap.min.js');
+        require('@popperjs/core');
+        require('bootstrap');
+    </script>
+    <script src="render/index.js" defer></script>
+    <style>
+        .filter button {
+            height: 100%;
+            aspect-ratio: 1;
+            font-size: 1.5em;
+            border: none;
+            background: none;
+            padding: 0;
+        }
+
+        .filter .col-auto {
+            padding: 0;
+            width: 38px;
+        }
+
+        .filter-col {
+            padding-left: 0.4em;
+            padding-right: 0.4em;
+            text-transform: uppercase;
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="container py-3">
+        <div class="row pb-3 justify-content-between">
+            <div class="input-group col">
+                <input type="file" class="form-control" id="file-input">
+                <button class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false" id="choose-sheet-btn" disabled>Sheet name
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" id="sheet-options">
+                </ul>
+            
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-primary" id="extract" disabled>Extract</button>
+                <button class="btn btn-secondary" id="tmpl-btn">tmpl</button>
+            </div>
+        </div>
+        <div id="tf-container">
+            <div id="tmpl-container">
+                Template:
+                <textarea name="" id="tmpl" cols="30" rows="5" class="form-control"></textarea>
+            </div>
+            <div id="filter-container">
+                Filters:
+                <div class="filter row my-2">
+                    <div class="col-1">
+                        <input type="text" class="filter-col form-control" maxlength="2">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="filter-content form-control">
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="add-filter" style="color: forestgreen">+</button>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+        
+        <textarea name="" id="output" cols="30" rows="25" class="form-control"></textarea>
+        <p class="text-start fs-6 pt-3 text-black" style="--bs-text-opacity: .10;"># A big data extract app specially
+            written
+            for
+            Kary
+            Cheung</p>
+    </div>
+</body>
+</html>

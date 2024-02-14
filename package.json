@@ -1,0 +1,38 @@
+{
+  "name": "excel-formatter",
+  "version": "3.0.0",
+  "main": "main.js",
+  "scripts": {
+    "build": "electron-builder -m --arm64"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@popperjs/core": "^2.9.3",
+    "bootstrap": "^5.1.0",
+    "jquery": "^3.6.0",
+    "xlsx": "^0.17.1"
+  },
+  "description": "",
+  "devDependencies": {
+    "electron": "^16.0.7",
+    "electron-builder": "^22.14.5"
+  },
+  "build": {
+    "appId": "com.excelextractor.app",
+    "productName": "excel extractor",
+    "win": {
+      "icon": "./favicon.png",
+      "target": [
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "peerDependencies": {}
+}
